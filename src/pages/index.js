@@ -1,10 +1,22 @@
 import * as React from "react"
 import Layout from "../components/layout"
 import { StaticImage } from 'gatsby-plugin-image'
+import { useStaticQuery, graphql } from 'gatsby'
+import Seo from '../components/seo'
 
 const IndexPage = () => {
+  const data = useStaticQuery(graphql`
+    query {
+      site {
+        siteMetadata {
+          title
+        }
+      }
+    }
+  `)
+
   return (
-    <Layout pageTitle="Welcom to my Gatsby site!">
+    <Layout pageTitle={data.site.siteMetadata.title}>
       <p>I'm making this by following the Gatsby Tutorial.</p>
       <StaticImage
         alt="Clifford, a reddish-brown pitbull, posing on a couch and looking stoically at the camera"
@@ -16,4 +28,4 @@ const IndexPage = () => {
 
 export default IndexPage
 
-export const Head = () => <title>Home Page</title>
+export const Head = () => <Seo title="Home Page" />
